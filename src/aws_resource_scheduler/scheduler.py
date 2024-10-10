@@ -102,38 +102,47 @@ def main(args=None):
     if rds_scheduler_resp:
         data_lines.append(f"--------Details about RDS Total: {len(rds_scheduler_resp)} -------")
         for instance in rds_scheduler_resp:
-            line = ", ".join(f"{key}: {value}" for key, value in instance.items())
-            data_lines.append(line)
+            if isinstance(instance, dict):
+                line = ", ".join(f"{key}: {value}" for key, value in instance.items())
+                data_lines.append(line)
+            else:
+                logging.warning(f"Unexpected response format for RDS: {instance}")
 
     if asg_scheduler_resp:
         data_lines.append(f"--------Details about ASG Total: {len(asg_scheduler_resp)} -------")
-        if action == 'status':
-            for asg in asg_scheduler_resp:
+        for asg in asg_scheduler_resp:
+            if isinstance(asg, dict):
                 line = ", ".join(f"{key}: {value}" for key, value in asg.items())
                 data_lines.append(line)
-        else:
-            data_lines.extend(asg_scheduler_resp)
+            else:
+                data_lines.append(str(asg))
 
     if ec2_scheduler_resp:
         data_lines.append(f"--------Details about EC2 Total: {len(ec2_scheduler_resp)} -------")
         for instance in ec2_scheduler_resp:
-            line = ", ".join(f"{key}: {value}" for key, value in instance.items())
-            data_lines.append(line)
+            if isinstance(instance, dict):
+                line = ", ".join(f"{key}: {value}" for key, value in instance.items())
+                data_lines.append(line)
+            else:
+                logging.warning(f"Unexpected response format for EC2: {instance}")
 
     if aurora_scheduler_resp:
         data_lines.append(f"--------Details about Aurora Total: {len(aurora_scheduler_resp)} -------")
         for instance in aurora_scheduler_resp:
-            line = ", ".join(f"{key}: {value}" for key, value in instance.items())
-            data_lines.append(line)
+            if isinstance(instance, dict):
+                line = ", ".join(f"{key}: {value}" for key, value in instance.items())
+                data_lines.append(line)
+            else:
+                logging.warning(f"Unexpected response format for Aurora: {instance}")
 
     if ecs_scheduler_resp:
         data_lines.append(f"--------Details about ECS Total: {len(ecs_scheduler_resp)} -------")
-        if action == 'status':
-            for service in ecs_scheduler_resp:
+        for service in ecs_scheduler_resp:
+            if isinstance(service, dict):
                 line = ", ".join(f"{key}: {value}" for key, value in service.items())
                 data_lines.append(line)
-        else:
-            data_lines.extend(ecs_scheduler_resp)
+            else:
+                data_lines.append(str(service))
 
     summary = "\n".join(data_lines)
     logging.info(summary)
