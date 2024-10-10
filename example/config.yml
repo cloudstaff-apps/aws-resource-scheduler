@@ -1,0 +1,36 @@
+workspaces:
+  stage:
+    aws_region: us-west-2
+    role_arn: arn:aws:iam::123456789012:role/SchedulerRole
+    notification:
+      enable: false
+      platform: google
+      webhook_url: https://chat.googleapis.com/v1/spaces/XXX/messages?key=YYY&token=ZZZ
+    ec2:
+      name:
+      - i-005937bc14e7d576e
+      tags:
+        "Env": "Dev"
+        "Scheduler": "True"
+    asg:
+      name:
+      - ecs-uat-apps
+      tags:
+        Name: Apps-ASG
+    ecs:
+      ecs-stage-apps:
+        services:
+          - service1
+        tags:
+          name: service2
+      uat-apps:
+        services:
+          - service3
+    rds:
+      name:
+      - uat-rds1
+      tags:
+        Env: Dev
+    aurora:
+      name:
+      - aurora-cluster1
