@@ -1,0 +1,20 @@
+# Include the LICENSE file
+include LICENSE
+
+# Include the README and other documentation files
+include README.md
+include faq.md
+
+# Include example configurations
+# recursive-include example *.yml
+
+# Include all source files in the package
+recursive-include src *.py
+
+# Include test files
+recursive-include tests *.py
+
+# Exclude unwanted files
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .DS_Store

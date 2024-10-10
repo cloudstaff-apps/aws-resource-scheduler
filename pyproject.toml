@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aws-resource-scheduler"
+version = "0.1.0"
+description = "An open-source solution to start/stop AWS EC2, Autoscaling Group, RDS, Aurora, ECS, and Fargate."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name="Nitin Bhadauria", email="nitinb@cloudstaff.com" },
+]
+maintainers = [
+  { name="Nitin Bhadauria", email="nitinb@cloudstaff.com" },
+]
+keywords = ["aws", "scheduler", "automation", "ec2", "rds", "asg", "aurora"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "boto3>=1.20.0",
+    "PyYAML>=5.4",
+    "requests>=2.28.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/cloudstaff-apps/aws-resource-scheduler"
+Repository = "https://github.com/cloudstaff-apps/aws-resource-scheduler"
+Documentation = "https://github.com/cloudstaff-apps/aws-resource-scheduler#readme"
+BugTracker = "https://github.com/cloudstaff-apps/aws-resource-scheduler/issues"
+
+[project.scripts]
+aws-resource-scheduler = "aws_resource_scheduler.scheduler:main"
