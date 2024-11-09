@@ -9,15 +9,18 @@ from aws_resource_scheduler.utils.aurora import AuroraModule
 from aws_resource_scheduler.utils.ecs import EcsModule
 from aws_resource_scheduler.utils.common import parse_arguments, evaluate, aws_login, send_chat_notification, Storage, ParameterStoreStorage, DynamoDBStorage
 
+# Set up the logger
+logger = logging.getLogger(__name__)
+if not logger.hasHandlers():
+    # Configure logging only if not already set (useful for CLI mode)
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 def main(args=None):
     """
     Main function to parse arguments, evaluate configuration, and perform actions
     on AWS resources such as EC2, ASG, RDS, Aurora, and ECS. Also sends notifications
     to the specified chat platform (Google Chat, Slack, Teams) if enabled.
     """
-    # Setup logging
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
     if args is None:
         # Parse command-line arguments and fetch configuration
         args = parse_arguments()

@@ -1,0 +1,21 @@
+workspaces:
+  stage:
+    aws_region: us-west-2
+    role_arn: arn:aws:iam::123456789012:role/SchedulerRole
+    notification:
+      enable: false
+      platform: google
+      webhook_url: https://chat.googleapis.com/v1/spaces/XXX/messages?key=YYY&token=ZZZ
+    ec2:
+      name:
+      tags:
+        scheduler: "true"
+    asg:
+      tags:
+        scheduler: "true"
+    rds:
+      tags:
+        scheduler: "true"
+    aurora:
+      tags:
+        scheduler: "true"

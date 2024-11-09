@@ -1,5 +1,9 @@
 # AWS Resource Scheduler
 
+[![Build Status](https://github.com/cloudstaff-apps/aws-resource-scheduler/actions/workflows/pip_publish.yml/badge.svg)](https://github.com/cloudstaff-apps/aws-resource-scheduler/actions/workflows/pip_publish.yml)
+[![Latest Release](https://img.shields.io/github/v/release/cloudstaff-apps/aws-resource-scheduler?style=flat-square)](https://github.com/cloudstaff-apps/aws-resource-scheduler/releases/latest)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/aws-resource-scheduler?style=flat-square)](https://pypi.org/project/aws-resource-scheduler/)
+
 AWS Resource Scheduler is an open-source Python module that automates the start and stop operations for various AWS resources, including EC2 instances, Auto Scaling Groups (ASG), ECS services, RDS databases, and Aurora clusters.
 
 ## Features
@@ -86,8 +90,7 @@ aws-resource-scheduler -f config-stage.yml -w stage -r ec2,asg,ecs -a start
 
 ### IAM Role and Permission
 
-To securely interact with AWS resources, create an IAM role with the necessary permissions. Follow these steps:
-
+To securely interact with AWS resources, create an IAM role with the necessary permissions listed below:
 
 ```json
 {

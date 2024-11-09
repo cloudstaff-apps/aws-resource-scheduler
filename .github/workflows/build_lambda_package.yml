@@ -1,0 +1,45 @@
+name: Build and Release Lambda Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          mkdir package
+          pip install -r lambda/requirements.txt -t package
+
+      - name: Copy source code
+        run: |
+          cp -r src/aws_resource_scheduler package/aws_resource_scheduler
+          cp lambda/lambda_function.py package/
+          # Uncomment if including config.yml
+          # cp config.yml package/
+
+      - name: Create zip package
+        run: |
+          cd package
+          zip -r ../aws_resource_scheduler_lambda_package.zip .
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: aws_resource_scheduler_lambda_package.zip
+          asset_name: aws_resource_scheduler_lambda_package.zip
+          asset_content_type: application/zip
